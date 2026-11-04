@@ -384,6 +384,35 @@ if HAVE_LOG:
             r["rank_med"] = int(np.median(col)); r["rank_lo"] = int(np.percentile(col, 2.5)); r["rank_hi"] = int(np.percentile(col, 97.5))
             r["p_top5"] = float(np.mean(col <= 5)); r["p_top10"] = float(np.mean(col <= 10))
             r["rank_best"], r["rank_worst"] = r["rank_lo"], r["rank_hi"]   # the joint interval replaces the marginal spread everywhere
+        if "--write-ranks" in sys.argv:
+            # write the joint-bootstrap rank fields into the published result files (results.json, scores.csv), so that the
+            # data carry what the report's tables show (the marginal rank_best/rank_worst of score.py are replaced by the
+            # joint interval; 4 November 2026, found while the /benchmark page was built from the data)
+            import csv as _csv
+            jf = {r["id"]: {"rank_lo": r["rank_lo"], "rank_hi": r["rank_hi"], "rank_med": r["rank_med"],
+                            "p_top5": round(r["p_top5"], 4), "p_top10": round(r["p_top10"], 4)} for r in scored}
+            RJ = json.load(open(f"{RES}/results.json")); n_set = 0
+            for c in RJ["candidates"]:
+                f_ = jf.get(c.get("id"))
+                if f_: c.update(f_); c["rank_best"], c["rank_worst"] = f_["rank_lo"], f_["rank_hi"]; n_set += 1
+                else:
+                    for k_ in ("rank_lo", "rank_hi", "rank_med", "p_top5", "p_top10"): c[k_] = None
+            RJ["rank_interval"] = {"method": "joint seed bootstrap: the seed indexes are resampled once per replicate and every controller is ranked within the replicate",
+                                   "replicates": JOINT_REPS, "rng_seed": 20261103, "fields": ["rank_lo", "rank_hi", "rank_med", "p_top5", "p_top10"],
+                                   "note": "rank_best and rank_worst equal rank_lo and rank_hi (the marginal spread from the score intervals was retired on 4 November 2026); null for merged duplicates, the baseline and the excluded run"}
+            json.dump(RJ, open(f"{RES}/results.json", "w"), indent=1)
+            rows_ = list(_csv.DictReader(open(f"{RES}/scores.csv"))); hdr = list(rows_[0].keys())
+            new_cols = ["rank_lo", "rank_hi", "rank_med", "p_top5", "p_top10"]
+            if "rank_lo" not in hdr:
+                i_ = hdr.index("rank_worst") + 1; hdr[i_:i_] = new_cols
+            by_bot = {(c["bot"], c.get("version")): c for c in RJ["candidates"]}
+            for row in rows_:
+                c = by_bot.get((row["bot"], row["version"])) or {}
+                for k_ in new_cols: row[k_] = "" if c.get(k_) is None else c[k_]
+                if c.get("rank_lo") is not None: row["rank_best"], row["rank_worst"] = c["rank_lo"], c["rank_hi"]
+            with open(f"{RES}/scores.csv", "w", newline="") as fh_:
+                w_ = _csv.DictWriter(fh_, fieldnames=hdr); w_.writeheader(); w_.writerows(rows_)
+            print(f"joint rank fields written for {n_set} candidates into results.json and scores.csv")
         xm["RankMethod"] = "joint"; xm["JointReps"] = f"{JOINT_REPS:,}"
         xm["RankOneIncl"] = sum(1 for r in scored if r["rank_lo"] <= 1)                 # controllers whose 95 % rank interval includes 1
         xm["RankOneTenPct"] = int(sum(1 for j in range(len(scored)) if np.mean(ranks[:, j] == 1) >= 0.10))   # controllers with P(rank 1) >= 0.10 (v1.2 saturation condition)
