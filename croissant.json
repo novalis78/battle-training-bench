@@ -98,7 +98,7 @@
       "description": "Every Controlled Edition run (valid or not) with checkpoints, uploads, tokens and list cost, and per-(harness, model) aggregates with bootstrap intervals over runs.",
       "contentUrl": "https://zenodo.org/records/23955308/files/controlled-edition.json",
       "encodingFormat": "application/json",
-      "sha256": "2ca73121e2a9ddb61c008b64ac5a2d99616830c075d626ec0d69034c58220ef7"
+      "sha256": "72a76d93a86344ded31fd5bd6504c7fc41c481e1d8ac9448f6d99362c84d5ec8"
     },
     {
       "@type": "cr:FileObject",

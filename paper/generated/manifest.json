@@ -57,9 +57,9 @@
  },
  "manifest_version": 1,
  "manuscript": {
-  "built_at": "2026-11-04T16:53:20Z",
-  "paper_last_commit": "db11bebdf8959fd3d392ff0a67b1338433ffa6b1",
-  "repository_commit": "d80b40570505e5e709d96fd9bbb2e76de8f2d4ae"
+  "built_at": "2026-11-04T17:33:13Z",
+  "paper_last_commit": "41b890353ede91d61ff4019e7f05e1530ba96ee4",
+  "repository_commit": "efd89b05be5c2a70101911b88bcad5658a431e86"
  },
  "panel": [
   {
@@ -214,7 +214,7 @@
   "path": "research/bench/score.py",
   "sha256": "7d730612b50ebe0307f860a37feb9708c5deb7964ea36d25cec30cde851adb73"
  },
- "self_sha256": "0f74bfffa7a9cebde5ee73ef7c4fee0f78bcb622683f8676372a301a49e6e7a8",
+ "self_sha256": "7c704158897286404ccc19ed5790ca9cfdf65b1aa00e0f9796da0d50f88d89ba",
  "signature": {
   "note": "to be signed by the author (detached signature published with the data package)",
   "status": "unsigned"
