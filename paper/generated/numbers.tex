@@ -52,6 +52,8 @@
 \newcommand{\Headroom}{5.5}
 \newcommand{\HistScored}{270}
 \newcommand{\Determinism}{80/80}
+\newcommand{\SnapshotDate}{1 November 2026}
+\newcommand{\ScoringDate}{4 November 2026}
 \newcommand{\LadderSets}{23,964}
 \newcommand{\LadderGames}{47,928}
 \newcommand{\LadderBots}{51}
@@ -74,6 +76,7 @@
 \newcommand{\PairwiseTopFiveMax}{90}
 \newcommand{\JointReps}{10,000}
 \newcommand{\RankOneIncl}{4}
+\newcommand{\RankOneTenPct}{1}
 \newcommand{\TopTenHalf}{11}
 \newcommand{\TopPTopFive}{97}
 \newcommand{\TopPTopOne}{82}
@@ -116,8 +119,11 @@
 \newcommand{\LomoOpsMaxRankShift}{60}
 \newcommand{\RedundHiPair}{R7--R12}
 \newcommand{\RedundHiRho}{0.90}
-\newcommand{\RedundHiRhoThree}{0.9000}
+\newcommand{\RedundHiRhoThree}{0.90}
+\newcommand{\RedundHiLo}{0.86}
+\newcommand{\RedundHiHi}{0.93}
 \newcommand{\RedundHiExceeds}{0}
+\newcommand{\RedundHiReview}{0}
 \newcommand{\RedundLoPair}{R2--R9}
 \newcommand{\RedundLoRho}{0.25}
 \newcommand{\RedundLeast}{R11}
@@ -141,6 +147,10 @@
 \newcommand{\FrontierWorstSep}{0}
 \newcommand{\FrontierWeakSD}{1.9}
 \newcommand{\FrontierStrongSD}{9.5}
+\newcommand{\FrontierNoneSep}{R1}
+\newcommand{\FrontierSmall}{R4}
+\newcommand{\FrontierSmallSD}{1.4}
+\newcommand{\FrontierSmallSep}{38}
 \newcommand{\SideDiffMean}{+0.000}
 \newcommand{\SideDiffLo}{-0.004}
 \newcommand{\SideDiffHi}{+0.005}
@@ -249,16 +259,34 @@
 \newcommand{\CensusVersionsScored}{420}
 \newcommand{\DedupeAllN}{123}
 \newcommand{\DedupeAcctN}{91}
-\newcommand{\DedupeProfN}{117}
-\newcommand{\DedupeProfMerged}{0}
+\newcommand{\DedupeProfN}{104}
+\newcommand{\DedupeProfMerged}{13}
+\newcommand{\AgreePairs}{6,786}
+\newcommand{\AgreeMean}{0.04}
+\newcommand{\AgreeMedian}{0.03}
+\newcommand{\AgreeCloseMean}{0.09}
+\newcommand{\AgreeCloseN}{412}
+\newcommand{\AgreePNinetyNine}{0.28}
+\newcommand{\AgreePNineNineNine}{0.78}
+\newcommand{\AgreeThr}{0.5}
+\newcommand{\AgreeAbove}{14}
+\newcommand{\AgreeAbovePNinetyNine}{68}
+\newcommand{\AgreeClustersSameOwner}{7}
+\newcommand{\AgreeMax}{0.98}
+\newcommand{\AgreeClusterN}{12}
+\newcommand{\AgreeClusterRows}{25}
+\newcommand{\AgreeClusterList}{ultra-ai-vaporizer (91.7) / sovereign-vanquisher-viper (90.5); aedilis-1 (91.2) / aedilis-2 (90.9); faustus (90.8) / ghost-beacon (90.5); rc-dot-rampart (87.1) / grokbot-lab (86.5); bazookabot (84.4) / bazookabot-lab (83.5); purgatory-minimus (78.3) / purificatory-maximus (77.7) / ex-nihilo (75.9); bosun-lab (73.6) / bosun-armor (73.6); ledger-lab (57.4) / ledger-hound (56.8); vanguard-cc (46.2) / brick (45.7); pybot (45.1) / codex-ironclad-v2 (44.8); mediaforge-1 (35.0) / orenrot-v1 (34.1); grok-bot (27.1) / grok-v1 (24.7)}
+\newcommand{\AgreeTopEdge}{faustus and ghost-beacon, $\kappa=0.98$, identical results in 100\% of their games}
+\newcommand{\AgreeRawMean}{64}
 \newcommand{\DedupeTopTenOwners}{5}
 \newcommand{\DedupeTopTenOwnersAcct}{10}
 \newcommand{\BcaWidth}{6.7}
 \newcommand{\PctWidth}{6.4}
 \newcommand{\BcaWidthDiff}{+0.4}
-\newcommand{\CEDraftSentence}{Gemini 4 Argon drafts 2×MBT + scout + drone in 2 of 5 readable finals; GPT-6.1 Terra drafts 3×MBT in 4 of 5 readable finals; Claude Fable 5.1 drafts 2×MBT + APC in 3 of 4 readable finals (1 unread)}
+\newcommand{\MedianHalfWidth}{3.7}
+\newcommand{\CEDraftSentence}{Gemini 4 Argon drafts 2×MBT + scout + drone in 2 of 5 readable finals; GPT-6.1 Terra drafts 3×MBT in 4 of 5 readable finals; Claude Fable 5.1 drafts 2×MBT + APC in 4 of 5 readable finals}
 \newcommand{\CEDraftTanksOnly}{5}
-\newcommand{\CEDraftRead}{14}
+\newcommand{\CEDraftRead}{15}
 \newcommand{\RunsFilesEvents}{23}
 \newcommand{\RunsFilesClaude}{5}
 \newcommand{\RunsFilesCodex}{8}
@@ -365,23 +393,35 @@
 \newcommand{\CEDiffGeminiGPT}{+5.0}
 \newcommand{\CEDiffGeminiGPTLo}{+0.6}
 \newcommand{\CEDiffGeminiGPTHi}{+9.5}
-\newcommand{\CEDiffGeminiGPTP}{0.03}
-\newcommand{\CEDiffGeminiGPTPHolm}{0.06}
+\newcommand{\CEDiffGeminiGPTP}{0.048}
+\newcommand{\CEDiffGeminiGPTPHolm}{0.095}
+\newcommand{\CEDiffGeminiGPTPWelch}{0.031}
+\newcommand{\CEDiffGeminiGPTPWelchHolm}{0.063}
+\newcommand{\CEDiffGeminiGPTPermCount}{12/252}
 \newcommand{\CEDiffGeminiGPTSig}{1}
 \newcommand{\CEDiffGeminiClaude}{+5.9}
 \newcommand{\CEDiffGeminiClaudeLo}{+1.5}
 \newcommand{\CEDiffGeminiClaudeHi}{+10.2}
-\newcommand{\CEDiffGeminiClaudeP}{0.02}
-\newcommand{\CEDiffGeminiClaudePHolm}{0.05}
+\newcommand{\CEDiffGeminiClaudeP}{0.024}
+\newcommand{\CEDiffGeminiClaudePHolm}{0.071}
+\newcommand{\CEDiffGeminiClaudePWelch}{0.015}
+\newcommand{\CEDiffGeminiClaudePWelchHolm}{0.046}
+\newcommand{\CEDiffGeminiClaudePermCount}{6/252}
 \newcommand{\CEDiffGeminiClaudeSig}{1}
 \newcommand{\CEDiffGPTClaude}{+0.8}
 \newcommand{\CEDiffGPTClaudeLo}{-2.8}
 \newcommand{\CEDiffGPTClaudeHi}{+4.5}
-\newcommand{\CEDiffGPTClaudeP}{0.62}
-\newcommand{\CEDiffGPTClaudePHolm}{0.62}
+\newcommand{\CEDiffGPTClaudeP}{0.611}
+\newcommand{\CEDiffGPTClaudePHolm}{0.611}
+\newcommand{\CEDiffGPTClaudePWelch}{0.618}
+\newcommand{\CEDiffGPTClaudePWelchHolm}{0.618}
+\newcommand{\CEDiffGPTClaudePermCount}{154/252}
 \newcommand{\CEDiffGPTClaudeSig}{0}
 \newcommand{\CEPairs}{3}
-\newcommand{\CEHolmSig}{1}
+\newcommand{\CEHolmSig}{0}
+\newcommand{\CEWelchHolmSig}{1}
+\newcommand{\CEPermTotal}{252}
+\newcommand{\CEPermMinP}{0.024}
 \newcommand{\CEPooledSD}{2.8}
 \newcommand{\CEPlanNThree}{15}
 \newcommand{\CEPlanNTwo}{33}
@@ -389,6 +429,11 @@
 \newcommand{\CEPlanNTwoRef}{26}
 \newcommand{\CEMinN}{5}
 \newcommand{\CEMaxN}{5}
+\newcommand{\CEGeminiCappedRanks}{first, second and third}
+\newcommand{\CEGeminiCappedN}{3}
+\newcommand{\CEGPTMeanWithExcluded}{79.1}
+\newcommand{\CEGPTExcludedScore}{67.8}
+\newcommand{\CEGPTExcludedDirection}{raised}
 \newcommand{\CEUnscoredFinals}{0}
 \newcommand{\CECapped}{8}
 \newcommand{\CEFullBudget}{6}
@@ -396,7 +441,9 @@
 \newcommand{\CECheckpointRuns}{15}
 \newcommand{\CECheckpointMissing}{0}
 \newcommand{\CECheckpointMissingRuns}{none}
-\newcommand{\CECheckpointEnded}{2}
+\newcommand{\CECheckpointEnded}{3}
+\newcommand{\CECheckpointEndedRuns}{ag-gemini-4-argon-r6, ag-gemini-4-argon-r7, codex-gpt-6-1-terra-r1}
+\newcommand{\CECheckpointEndedThirty}{1}
 \newcommand{\CEOneShotRuns}{15}
 \newcommand{\CEGeminiOneShot}{76.8}
 \newcommand{\CEGeminiOneShotN}{5}
