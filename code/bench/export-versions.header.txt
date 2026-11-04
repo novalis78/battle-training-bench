@@ -1,0 +1,9 @@
+#!/usr/bin/env node
+// The Bench's version list and controller sources, from production (the arena session runs this when the Bench session
+// asks; BENCH_V1.md). Every version (smoke-failed ones and hidden benchmark accounts included), oldest first, in the
+// shape bench.ts reads ([{ results: [...] }], the `wrangler d1 execute --json` output), into
+// ~/.cache/bt-bench/versions-<edition>.json; then every source not yet in ~/.cache/bt-bench/sources/ from R2.
+// Private: the sources and the file never leave this machine and the Spark, never git.
+//   node research/bench/export-versions.mjs --edition v1.1 [--dry]
+// The D1 API sometimes answers 7403 ("account not authorized") for a moment: a result that is not a list of rows is
+// retried and never written over the previous file (2 November 2026: an error body once replaced versions-v1.1.json).
