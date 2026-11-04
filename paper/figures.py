@@ -1312,8 +1312,16 @@ if CE:
             end = "clock" if (r.get("minutes") or 0) >= 115 else ("cap" if cont >= 8 else "stopped")
             end += f" ({cont})" if cont else ""
             if not r["valid"]:
-                why = reasons.get(r["run"], "invalid")
-                why = tex(why) if len(why) <= 66 else tex(why[:64].rsplit(" ", 1)[0]) + "\\,\\dots"
+                note = reasons.get(r["run"], "invalid")
+                # a complete short cause for the table (the full note is in controlled-edition.json), never a cut sentence
+                if "RESOURCE_EXHAUSTED" in note and "after r6+r7" in note: why = "quota refused at the first request: two runs had been started at once on the individual tier (operator scheduling); no upload"
+                elif "RESOURCE_EXHAUSTED" in note: why = "quota refused at the first request: started right after r10 on the same individual tier (operator scheduling); no upload"
+                elif "not authenticated" in note: why = "the CLI was not authenticated on the scoring machine; no upload"
+                elif "Google account without" in note: why = "the CLI was signed in to a Google account without Gemini 4 Argon; no upload"
+                elif "network error" in note: why = "the orchestrator lost its network 77 min in and the agent ran on unsupervised past the budget; no upload"
+                elif "went to sleep" in note: why = "the laptop slept 5 min in; 4 uploads, final scored 67.8 and excluded (not a draw from the protocol)"
+                else: why = note if len(note) <= 90 else note[:88].rsplit(" ", 1)[0] + " (see controlled-edition.json)"
+                why = tex(why)
                 cls = {"E-invalid": "E-invalid", "S-failure": "S-failure"}.get(r.get("invalid_class") or "", "invalid")
                 fh.write(f"{tex(r['run'].replace('pilot-', ''))} & {tex(short_model(r['model']))} & \\multicolumn{{7}}{{l}}{{\\emph{{{cls}, not a result: {why}}}}} \\\\\n")
             else:
