@@ -1,0 +1,14 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "battle-training"
+version = "0.1.0"
+description = "A minimal Python client for the battle.training REST API (standard library only)"
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "CC BY 4.0" }
+
+[tool.setuptools]
+packages = ["battle_training"]
